@@ -3,5 +3,8 @@
 	<body>
 		<p>This is a test</p>
 		<p>This is another test</p>
+	<table>
+		<row> Times </row>
+	</table>
 	</body>
 </html>
