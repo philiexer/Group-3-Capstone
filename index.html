@@ -2,8 +2,63 @@
 <html>
 	<body>
 		<p>This is a test</p>
-		<table>
-			<row> Times </row>
-		</table>
+		<p>This is another test</p>
+	<table border="1" id="schedule">
+		<tr>
+			<th colspan=5><strong>Schedule from available times!</strong></th>
+		<tr>
+			<th>Monday</th>
+			<th>Tuesday</th>
+			<th>Wednesday</th>
+			<th>Thursday</th>
+			<th>Friday</th>
+		</tr>
+		<tr>
+			<td>9</td><td>9</td><td>9</td><td>9</td><td>9</td>
+		</tr>
+		<tr>
+			<td>10</td><td>10</td><td>10</td><td>10</td><td>10</td>
+		</tr>
+		<tr>
+            <td>11</td><td>11</td><td>11</td><td>11</td><td>11</td>
+        </tr>
+		<tr>
+            <td>12</td><td>12</td><td>12</td><td>12</td><td>12</td>
+        </tr>
+		<tr>
+            <td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
+        </tr>
+		<tr>
+            <td>2</td><td>2</td><td>2</td><td>2</td><td>2</td>
+        </tr>
+		<tr>
+            <td>3</td><td>3</td><td>3</td><td>3</td><td>3</td>
+        </tr>
+		<tr>
+            <td>4</td><td>4</td><td>4</td><td>4</td><td>4</td>
+        </tr>
+		<tr>
+            <td>5</td><td>5</td><td>5</td><td>5</td><td>5</td>
+        </tr>
+
+	</table>
+
+	<style>
+		.booked { 
+			text-decoration: line-through;
+			background-color: lightgray;
+		}
+	</style>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			const cells = document.querySelectorAll("#schedule td");
+			cells.forEach(cell => {
+				cell.addEventListener("click", function() {
+					this.classList.toggle("booked");
+				});
+			});
+		});
+	</script>
 	</body>
 </html>
