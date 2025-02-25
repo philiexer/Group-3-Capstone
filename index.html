@@ -51,14 +51,31 @@
 	</style>
 
 	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			const cells = document.querySelectorAll("#schedule td");
-			cells.forEach(cell => {
-				cell.addEventListener("click", function() {
-					this.classList.toggle("booked");
-				});
-			});
-		});
-	</script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cells = document.querySelectorAll("#schedule td");
+        
+            // Fetch saved bookings from the server
+            fetch("https://your-backend-url/bookings")
+                .then(response => response.json())
+                .then(bookedTimes => {
+                    cells.forEach(cell => {
+                        const timeSlot = `${cell.cellIndex}-${cell.parentNode.rowIndex}`;
+                        if (bookedTimes.includes(timeSlot)) {
+                            cell.classList.add("booked");
+                        }
+        
+                        cell.addEventListener("click", function() {
+                            this.classList.toggle("booked");
+        
+                            fetch("https://your-backend-url/bookings", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ timeSlot })
+                            });
+                        });
+                    });
+                });
+        });
+        </script>
 	</body>
 </html>
