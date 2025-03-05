@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Photographer Schedule</title>
+    <style>
+        .booked {
+            text-decoration: line-through;
+            background-color: lightgray;
+        }
+        #bookingForm {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 1px solid black;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <h2>Schedule Your Appointment</h2>
+    
+    <table border="1" id="schedule">
+        <tr>
+            <th colspan="5"><strong>Schedule from available times!</strong></th>
+        </tr>
+        <tr>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+        </tr>
+        <tr><td>9 AM</td><td>9 AM</td><td>9 AM</td><td>9 AM</td><td>9 AM</td></tr>
+        <tr><td>10 AM</td><td>10 AM</td><td>10 AM</td><td>10 AM</td><td>10 AM</td></tr>
+        <tr><td>11 AM</td><td>11 AM</td><td>11 AM</td><td>11 AM</td><td>11 AM</td></tr>
+        <tr><td>12 PM</td><td>12 PM</td><td>12 PM</td><td>12 PM</td><td>12 PM</td></tr>
+        <tr><td>1 PM</td><td>1 PM</td><td>1 PM</td><td>1 PM</td><td>1 PM</td></tr>
+        <tr><td>2 PM</td><td>2 PM</td><td>2 PM</td><td>2 PM</td><td>2 PM</td></tr>
+        <tr><td>3 PM</td><td>3 PM</td><td>3 PM</td><td>3 PM</td><td>3 PM</td></tr>
+        <tr><td>4 PM</td><td>4 PM</td><td>4 PM</td><td>4 PM</td><td>4 PM</td></tr>
+        <tr><td>5 PM</td><td>5 PM</td><td>5 PM</td><td>5 PM</td><td>5 PM</td></tr>
+    </table>
+
+    <!-- Hidden Booking Form -->
+    <div id="bookingForm">
+        <h3>Book an Appointment</h3>
+        <p id="selectedSlot"></p>
+        <label>Name: <input type="text" id="name"></label><br><br>
+        <label>Email: <input type="email" id="email"></label><br><br>
+        <label>Notes: <textarea id="notes"></textarea></label><br><br>
+        <button id="submitBooking">Confirm Booking</button>
+        <button id="cancelBooking">Cancel</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cells = document.querySelectorAll("#schedule td");
+            const bookingForm = document.getElementById("bookingForm");
+            const selectedSlot = document.getElementById("selectedSlot");
+            const submitBooking = document.getElementById("submitBooking");
+            const cancelBooking = document.getElementById("cancelBooking");
+
+            let bookedAppointments = JSON.parse(localStorage.getItem("bookings")) || [];
+            let currentSlot = "";
+
+            // Load saved bookings
+            function loadBookings() {
+                bookedAppointments.forEach(booking => {
+                    const cell = [...cells].find(cell => cell.textContent === booking.time);
+                    if (cell) cell.classList.add("booked");
+                });
+            }
+
+            loadBookings();
+
+            cells.forEach(cell => {
+                cell.addEventListener("click", function() {
+                    if (this.classList.contains("booked")) return; // Ignore booked slots
+
+                    currentSlot = this.textContent;
+                    selectedSlot.textContent = "Selected Time: " + currentSlot;
+                    bookingForm.style.display = "block";
+                });
+            });
+
+            // Submit Booking
+            submitBooking.addEventListener("click", function() {
+                const name = document.getElementById("name").value;
+                const email = document.getElementById("email").value;
+                const notes = document.getElementById("notes").value;
+
+                if (!name || !email) {
+                    alert("Please enter your name and email.");
+                    return;
+                }
+
+                const bookingData = { time: currentSlot, name, email, notes };
+                bookedAppointments.push(bookingData);
+                localStorage.setItem("bookings", JSON.stringify(bookedAppointments));
+
+                const bookedCell = [...cells].find(cell => cell.textContent === currentSlot);
+                if (bookedCell) bookedCell.classList.add("booked");
+
+                bookingForm.style.display = "none";
+                alert("Booking confirmed!");
+            });
+
+            // Cancel Booking
+            cancelBooking.addEventListener("click", function() {
+                bookingForm.style.display = "none";
+            });
+        });
+    </script>
+</body>
+</html>
