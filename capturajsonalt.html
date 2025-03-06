@@ -55,7 +55,7 @@
             const cells = document.querySelectorAll("#schedule td");
         
             // Fetch saved bookings from the server
-            fetch("https://*CapturaURL*/bookings")
+            fetch("http://captura.infinityfreeapp.com/bookings")
                 .then(response => response.json())
                 .then(bookedTimes => {
                     cells.forEach(cell => {
@@ -67,7 +67,7 @@
                         cell.addEventListener("click", function() {
                             this.classList.toggle("booked");
         
-                            fetch("https://*CapturaURL*/bookings", {
+                            fetch("http://captura.infinityfreeapp.com/bookings", {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
                                 body: JSON.stringify({ timeSlot })
