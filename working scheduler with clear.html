@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Photographer Schedule</title>
+    <style>
+        .booked {
+            text-decoration: line-through;
+            background-color: lightgray;
+        }
+        #bookingForm {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 1px solid black;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <h2>Schedule Your Appointment</h2>
+    
+    <table border="1" id="schedule">
+        <tr>
+            <th colspan="5"><strong>Schedule from available times!</strong></th>
+        </tr>
+        <tr>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+        </tr>
+        <tr><td>M 9 AM</td><td>T 9 AM</td><td>W 9 AM</td><td>R 9 AM</td><td>F 9 AM</td></tr>
+        <tr><td>M 10 AM</td><td>T 10 AM</td><td>W 10 AM</td><td>R 10 AM</td><td>F 10 AM</td></tr>
+        <tr><td>M 11 AM</td><td>T 11 AM</td><td>W 11 AM</td><td>R 11 AM</td><td>F 11 AM</td></tr>
+        <tr><td>M 12 PM</td><td>T 12 PM</td><td>W 12 PM</td><td>R 12 PM</td><td>F 12 PM</td></tr>
+        <tr><td>M 1 PM</td><td>T 1 PM</td><td>W 1 PM</td><td>R 1 PM</td><td>F 1 PM</td></tr>
+        <tr><td>M 2 PM</td><td>T 2 PM</td><td>W 2 PM</td><td>R 2 PM</td><td>F 2 PM</td></tr>
+        <tr><td>M 3 PM</td><td>T 3 PM</td><td>W 3 PM</td><td>R 3 PM</td><td>F 3 PM</td></tr>
+        <tr><td>M 4 PM</td><td>T 4 PM</td><td>W 4 PM</td><td>R 4 PM</td><td>F 4 PM</td></tr>
+        <tr><td>M 5 PM</td><td>T 5 PM</td><td>W 5 PM</td><td>R 5 PM</td><td>F 5 PM</td></tr>
+    </table>
+    <!-- Hidden Clear Schedule Button -->
+     <button id="clearSchedule">Clear Schedule</button>
+    
+    
+    <!-- Hidden Booking Form -->
+    <div id="bookingForm">
+        <h3>Book an Appointment</h3>
+        
+        <label>Name: <input type="text" id="name"></label><br><br>
+        <label>Email: <input type="email" id="email"></label><br><br>
+        <label>Notes: <textarea id="notes"></textarea></label><br><br>
+        <button id="submitBooking">Confirm Booking</button>
+        <button id="cancelBooking">Cancel</button>
+    </div>
+
+    <div id="selectedSlot"></div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const scheduleTable = document.getElementById("schedule");
+        const cells = scheduleTable.querySelectorAll("td");
+        const clearSchedule = document.getElementById("clearSchedule");
+        const bookingForm = document.getElementById("bookingForm");
+        const submitBooking = document.getElementById("submitBooking");
+        const cancelBooking = document.getElementById("cancelBooking");
+        const selectedSlot = document.getElementById("selectedSlot");
+
+        // We'll store the chosen time in 'currentSlot' so we know which cell was clicked.
+        let currentSlot = "";
+
+        // Fetch existing appointments
+        let bookedAppointments = JSON.parse(localStorage.getItem("bookings")) || [];
+
+        // Mark all previously booked cells
+        function loadBookings() {
+            bookedAppointments.forEach(booking => {
+                const bookedCell = [...cells].find(cell => cell.textContent === booking.time);
+                if (bookedCell) {
+                    bookedCell.classList.add("booked");
+                }
+            });
+        }
+        loadBookings();
+
+        // Attach a click listener to the entire table (or each <td>, your choice).
+        scheduleTable.addEventListener("click", function(e) {
+            // We only care if a <td> is clicked
+            if (e.target && e.target.nodeName === "TD") {
+                const clickedCell = e.target;
+                
+                // If it's already booked, do nothing
+                if (clickedCell.classList.contains("booked")) {
+                    return;
+                }
+
+                // Figure out the column so we know the day
+                const col = clickedCell.cellIndex; // which column in the row
+                const row = clickedCell.parentNode.rowIndex; // which row in the table
+                
+                // row 1 is the row with day names
+                const dayHeaderRow = scheduleTable.rows[1];
+                const dayName = dayHeaderRow.cells[col].innerText;
+
+                // The time is just the cell text
+                const timeText = clickedCell.innerText;
+
+                currentSlot = timeText; // Store it for use later in the form
+
+                selectedSlot.textContent = `Selected: ${dayName} at ${timeText}`;
+                bookingForm.style.display = "block";
+            }
+        });
+        // Clear the schedule
+        clearSchedule.addEventListener("click", function() {
+            // Clear all booked cells
+            for (let i = 0; i < cells.length; i++) {
+                cells[i].classList.remove("booked");
+            }
+
+            // Clear local storage
+            localStorage.removeItem("bookings");
+
+        });
+        // Submit Booking
+        submitBooking.addEventListener("click", function() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const notes = document.getElementById("notes").value;
+
+            if (!name || !email) {
+                alert("Please enter your name and email.");
+                return;
+            }
+
+            // Create booking object
+            const bookingData = {
+                time: currentSlot,
+                name: name,
+                email: email,
+                notes: notes
+            };
+
+            // Save in local storage
+            bookedAppointments.push(bookingData);
+            localStorage.setItem("bookings", JSON.stringify(bookedAppointments));
+
+            // Mark the cell as booked
+            const bookedCell = [...cells].find(cell => cell.textContent === currentSlot);
+            if (bookedCell) {
+                bookedCell.classList.add("booked");
+            }
+
+            bookingForm.style.display = "none";
+            alert("Booking confirmed!");
+        });
+
+        // Cancel Booking
+        cancelBooking.addEventListener("click", function() {
+            bookingForm.style.display = "none";
+        });
+    });
+    </script>
+</body>
+</html>
