@@ -1,0 +1,69 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+/*background*/
+body {
+    background: url('Rexy2.3.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/*header*/
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgb(3, 54, 0);
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+/*Logo*/
+.logo {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(177, 150, 0);
+}
+
+/*dropdown menu*/
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: rgb(177, 150, 0);
+}
+
+/*menu options*/
+nav {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background: rgb(3, 54, 0);
+    width: 200px;
+    display: none;
+    flex-direction: column;
+}
+
+nav.show {
+    display: flex;
+}
+
+nav a {
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+}
+
+nav a:hover {
+    background: rgba(3, 31, 0, 0.747);
+}
