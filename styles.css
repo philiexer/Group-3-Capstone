@@ -76,31 +76,54 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    background-color: #f4f4f4;
 }
+
 .carousel-container {
+
     position: relative;
-    width: 60%;
-    max-width: 600px;
+    width: 100%; 
+    max-width: 1800px;
     overflow: hidden;
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
-    background: #fff;
+    background: #0000005e;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+.carousel-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+.carousel-item {
+    background: rgba(5, 5, 5, 0.671);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(10, 10, 10, 0.671);
+    
 
+}
 .carousel {
     display: flex;
     transition: transform 0.5s ease-in-out;
-    width: 400%;
+    width: 100%;
 }
 
 .carousel img {
-    width: 100%;
+   
+    width: auto; 
+    height: 400px; 
+    max-height: 500px; 
+    display: flex;
+    object-fit: contain;
     cursor: pointer;
 }
 
+/* Navigation buttons */
 .prev, .next {
     position: absolute;
     top: 50%;
@@ -117,6 +140,7 @@ body {
 .prev { left: 10px; }
 .next { right: 10px; }
 
+/* Modal for enlarged image */
 .modal {
     display: none;
     position: fixed;
@@ -127,12 +151,12 @@ body {
     background: rgba(0, 0, 0, 0.8);
     justify-content: center;
     align-items: center;
-    z-index: 1000; 
+    z-index: 1000;
 }
 
 .modal-content {
-    max-width: 80%;
-    max-height: 80%;
+    max-width: 90%;
+    max-height: 90%;
     display: block;
     margin: auto;
 }
@@ -144,11 +168,59 @@ body {
     font-size: 30px;
     color: white;
     cursor: pointer;
-    z-index: 1001; 
+    z-index: 1001;
 }
 
-
+/* Hide buttons when modal is open */
 .modal-open .prev,
 .modal-open .next {
     display: none;
+}
+body {
+    font-family: Didot, serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+.gallery-container {
+    max-width: 1500px;
+    margin: 20px;
+}
+.gallery-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #d6c100;
+}
+.gallery {
+    display: flex;
+    gap: 120px;
+    text-align: center;
+}
+.gallery-item {
+    background: rgba(0, 44, 4, 0.671);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 44, 4, 0.671);
+}
+.gallery img {
+    width: 360px;
+    height: auto;
+    border-radius: 5px;
+}
+.description {
+    margin-top: 10px;
+    font-size: 22px;
+    color: #ffffff;
+}
+@media (max-width: 600px) {
+    .gallery {
+        flex-direction: column;
+        align-items: center;
+    }
 }
