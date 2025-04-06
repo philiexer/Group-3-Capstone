@@ -1,0 +1,226 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+/*background*/
+body {
+    background: url('Rexyopaque.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/*header*/
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgb(3, 54, 0);
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+/*Logo*/
+.logo {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(177, 150, 0);
+}
+
+/*dropdown menu*/
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: rgb(177, 150, 0);
+}
+
+/*menu options*/
+nav {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background: rgb(3, 54, 0);
+    width: 200px;
+    display: none;
+    flex-direction: column;
+}
+
+nav.show {
+    display: flex;
+}
+
+nav a {
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+}
+
+nav a:hover {
+    background: rgba(3, 31, 0, 0.747);
+}
+
+/*portfolio carousel*/
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.carousel-container {
+
+    position: relative;
+    width: 100%; 
+    max-width: 1800px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0000005e;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.carousel-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+.carousel-item {
+    background: rgba(5, 5, 5, 0.671);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(10, 10, 10, 0.671);
+    
+
+}
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+.carousel img {
+   
+    width: auto; 
+    height: 400px; 
+    max-height: 500px; 
+    display: flex;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+/* Navigation buttons */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 10;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* Modal for enlarged image */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    display: block;
+    margin: auto;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+/* Hide buttons when modal is open */
+.modal-open .prev,
+.modal-open .next {
+    display: none;
+}
+body {
+    font-family: Didot, serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+.gallery-container {
+    max-width: 1500px;
+    margin: 20px;
+}
+.gallery-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #d6c100;
+}
+.gallery {
+    display: flex;
+    gap: 120px;
+    text-align: center;
+}
+.gallery-item {
+    background: rgba(0, 44, 4, 0.671);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 44, 4, 0.671);
+}
+.gallery img {
+    width: 360px;
+    height: auto;
+    border-radius: 5px;
+}
+.description {
+    margin-top: 10px;
+    font-size: 22px;
+    color: #ffffff;
+}
+@media (max-width: 600px) {
+    .gallery {
+        flex-direction: column;
+        align-items: center;
+    }
+}
